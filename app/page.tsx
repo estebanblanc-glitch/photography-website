@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getSiteConfig } from "../lib/utils";
 
-export default function Home() {
+export default async function Home() {
+  const config = await getSiteConfig();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -9,10 +12,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-4">
-            Laura Rosso Fotografía
+            {config.hero.title}
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
-            Capturando momentos familiares únicos con pasión y creatividad desde hace generaciones
+            {config.hero.subtitle}
           </p>
           <div className="space-x-4">
             <Link href="/portfolio" className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
@@ -23,19 +26,15 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        {/* Placeholder for hero image */}
-        <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1920')"}}></div>
+        <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: `url('${config.hero.backgroundImage}')`}}></div>
       </section>
 
       {/* About Section */}
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">Sobre Laura</h2>
+          <h2 className="text-4xl font-bold mb-8">{config.about.title}</h2>
           <p className="text-lg leading-relaxed mb-8">
-            Laura Rosso es una fotógrafa apasionada que continúa el legado familiar de capturar momentos preciosos.
-            Desde muy pequeña, creció rodeada de cámaras y revelados, aprendiendo el arte de la fotografía de la mano de su padre.
-            Hoy, con años de experiencia, se especializa en fotografía familiar, bodas, eventos infantiles y celebraciones especiales,
-            creando imágenes que cuentan historias y preservan recuerdos para toda la vida.
+            {config.about.content}
           </p>
           <Link href="/about" className="text-blue-600 hover:text-blue-800 font-semibold">
             Leer más sobre mi trabajo →
@@ -48,21 +47,13 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">Servicios</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4">Fotografía Familiar</h3>
-              <p className="mb-4">Sesiones personalizadas para familias, capturando momentos únicos y conexiones especiales.</p>
-              <p className="text-2xl font-bold text-blue-600">Desde $150</p>
-            </div>
-            <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4">Bodas</h3>
-              <p className="mb-4">Cobertura completa de tu día especial, desde la preparación hasta el último baile.</p>
-              <p className="text-2xl font-bold text-blue-600">Desde $2,500</p>
-            </div>
-            <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4">Fiestas Infantiles</h3>
-              <p className="mb-4">Capturando la alegría y magia de cumpleaños, Navidad y celebraciones infantiles.</p>
-              <p className="text-2xl font-bold text-blue-600">Desde $200</p>
-            </div>
+            {config.services.map((service) => (
+              <div key={service.id} className="text-center p-6 bg-white rounded-lg shadow-lg">
+                <h3 className="text-2xl font-semibold mb-4">{service.name}</h3>
+                <p className="mb-4">{service.description}</p>
+                <p className="text-2xl font-bold text-blue-600">{service.price}</p>
+              </div>
+            ))}
           </div>
           <div className="text-center mt-8">
             <Link href="/services" className="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
@@ -77,30 +68,16 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">Trabajos Destacados</h2>
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="relative aspect-square overflow-hidden rounded-lg">
-              <Image
-                src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500"
-                alt="Fotografía destacada 1"
-                fill
-                className="object-cover hover:scale-105 transition-transform"
-              />
-            </div>
-            <div className="relative aspect-square overflow-hidden rounded-lg">
-              <Image
-                src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=500"
-                alt="Fotografía destacada 2"
-                fill
-                className="object-cover hover:scale-105 transition-transform"
-              />
-            </div>
-            <div className="relative aspect-square overflow-hidden rounded-lg">
-              <Image
-                src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=500"
-                alt="Fotografía destacada 3"
-                fill
-                className="object-cover hover:scale-105 transition-transform"
-              />
-            </div>
+            {config.portfolio.slice(0, 3).map((photo) => (
+              <div key={photo.id} className="relative aspect-square overflow-hidden rounded-lg">
+                <Image
+                  src={photo.image}
+                  alt={photo.title}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform"
+                />
+              </div>
+            ))}
           </div>
           <div className="text-center mt-8">
             <Link href="/portfolio" className="text-blue-600 hover:text-blue-800 font-semibold">
