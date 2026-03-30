@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import { getSiteConfig, saveSiteConfig } from '../../../lib/utils';
+import { getSiteConfig, saveSiteConfig } from '@/lib/utils';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'tu-secreto-jwt-aqui'; // Cambiar en producción
 

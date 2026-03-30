@@ -1,9 +1,17 @@
 import { Redis } from '@upstash/redis';
 
-const redis = new Redis({
-  url: process.env.KV_URL || process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.KV_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN,
-});
+let redis: Redis | null = null;
+
+function getRedis() {
+  if (!redis) {
+    const url = process.env.KV_URL || process.env.UPSTASH_REDIS_REST_URL;
+    const token = process.env.KV_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+    if (url && token) {
+      redis = new Redis({ url, token });
+    }
+  }
+  return redis;
+}
 
 export interface SiteConfig {
   site: {
@@ -130,6 +138,11 @@ const DEFAULT_CONFIG: SiteConfig = {
 };
 
 export async function getSiteConfig(): Promise<SiteConfig> {
+  const redis = getRedis();
+  if (!redis) {
+    console.warn('Redis not configured, using default config');
+    return DEFAULT_CONFIG;
+  }
   try {
     // Intentar obtener desde Redis
     const configData = await redis.get(CONFIG_KEY);
@@ -148,6 +161,10 @@ export async function getSiteConfig(): Promise<SiteConfig> {
 }
 
 export async function saveSiteConfig(config: SiteConfig): Promise<void> {
+  const redis = getRedis();
+  if (!redis) {
+    throw new Error('Redis not configured');
+  }
   try {
     await redis.set(CONFIG_KEY, JSON.stringify(config));
   } catch (error) {
