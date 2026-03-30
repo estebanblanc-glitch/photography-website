@@ -105,7 +105,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold">Email</p>
-                    <p className="text-gray-600">contacto@fotografia.com</p>
+                    <p className="text-gray-600">laura.rosso@gmail.com</p>
                   </div>
                 </div>
 
@@ -115,7 +115,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold">Teléfono</p>
-                    <p className="text-gray-600">+52 55 1234 5678</p>
+                    <p className="text-gray-600">+598 91247718</p>
                   </div>
                 </div>
 
@@ -125,7 +125,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold">Ubicación</p>
-                    <p className="text-gray-600">Ciudad de México, México</p>
+                    <p className="text-gray-600">Mercedes, Soriano, Uruguay</p>
                   </div>
                 </div>
               </div>

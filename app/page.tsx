@@ -9,10 +9,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-4">
-            Fotografía Profesional
+            Laura Rosso Fotografía
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
-            Capturando momentos únicos y emociones eternas con pasión y creatividad
+            Capturando momentos familiares únicos con pasión y creatividad desde hace generaciones
           </p>
           <div className="space-x-4">
             <Link href="/portfolio" className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
@@ -30,11 +30,12 @@ export default function Home() {
       {/* About Section */}
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">Sobre Mí</h2>
+          <h2 className="text-4xl font-bold mb-8">Sobre Laura</h2>
           <p className="text-lg leading-relaxed mb-8">
-            Soy una fotógrafa apasionada con años de experiencia capturando los momentos más preciados de la vida.
-            Mi enfoque es crear imágenes que no solo sean bellas, sino que cuenten historias y evoquen emociones.
-            Especializada en bodas, retratos, eventos y fotografía de producto.
+            Laura Rosso es una fotógrafa apasionada que continúa el legado familiar de capturar momentos preciosos.
+            Desde muy pequeña, creció rodeada de cámaras y revelados, aprendiendo el arte de la fotografía de la mano de su padre.
+            Hoy, con años de experiencia, se especializa en fotografía familiar, bodas, eventos infantiles y celebraciones especiales,
+            creando imágenes que cuentan historias y preservan recuerdos para toda la vida.
           </p>
           <Link href="/about" className="text-blue-600 hover:text-blue-800 font-semibold">
             Leer más sobre mi trabajo →
@@ -48,19 +49,19 @@ export default function Home() {
           <h2 className="text-4xl font-bold text-center mb-12">Servicios</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4">Fotografía de Bodas</h3>
-              <p className="mb-4">Captura el día más importante de tu vida con elegancia y emoción.</p>
-              <p className="text-2xl font-bold text-blue-600">Desde $2,500</p>
-            </div>
-            <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4">Retratos</h3>
-              <p className="mb-4">Sesiones personalizadas para familias, parejas y profesionales.</p>
+              <h3 className="text-2xl font-semibold mb-4">Fotografía Familiar</h3>
+              <p className="mb-4">Sesiones personalizadas para familias, capturando momentos únicos y conexiones especiales.</p>
               <p className="text-2xl font-bold text-blue-600">Desde $150</p>
             </div>
             <div className="text-center p-6 bg-white rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4">Eventos</h3>
-              <p className="mb-4">Cubrimiento completo de eventos corporativos y sociales.</p>
-              <p className="text-2xl font-bold text-blue-600">Desde $500</p>
+              <h3 className="text-2xl font-semibold mb-4">Bodas</h3>
+              <p className="mb-4">Cobertura completa de tu día especial, desde la preparación hasta el último baile.</p>
+              <p className="text-2xl font-bold text-blue-600">Desde $2,500</p>
+            </div>
+            <div className="text-center p-6 bg-white rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4">Fiestas Infantiles</h3>
+              <p className="mb-4">Capturando la alegría y magia de cumpleaños, Navidad y celebraciones infantiles.</p>
+              <p className="text-2xl font-bold text-blue-600">Desde $200</p>
             </div>
           </div>
           <div className="text-center mt-8">

@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fotografía Profesional - Capturando Momentos Especiales",
-  description: "Página web profesional para fotógrafa. Portafolio, servicios, reservas y tienda en línea.",
+  title: "Laura Rosso Fotografía - Fotógrafa Profesional en Uruguay",
+  description: "Fotografía profesional especializada en familias, bodas, eventos y fiestas infantiles. Capturando momentos únicos en Mercedes, Soriano, Uruguay.",
 };
 
 export default function RootLayout({
@@ -34,7 +34,7 @@ export default function RootLayout({
           <nav className="max-w-6xl mx-auto px-4 py-4">
             <div className="flex justify-between items-center">
               <Link href="/" className="text-2xl font-bold text-gray-800">
-                Fotografía Pro
+                Laura Rosso Fotografía
               </Link>
               <div className="hidden md:flex space-x-8">
                 <Link href="/" className="text-gray-600 hover:text-blue-600 transition">Inicio</Link>
@@ -62,9 +62,9 @@ export default function RootLayout({
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid md:grid-cols-4 gap-8">
               <div>
-                <h3 className="text-xl font-bold mb-4">Fotografía Pro</h3>
+                <h3 className="text-xl font-bold mb-4">Laura Rosso Fotografía</h3>
                 <p className="text-gray-400">
-                  Capturando momentos únicos con pasión y profesionalismo.
+                  Fotografía profesional especializada en capturar momentos familiares únicos.
                 </p>
               </div>
               <div>
@@ -88,14 +88,14 @@ export default function RootLayout({
               <div>
                 <h4 className="font-semibold mb-4">Contacto</h4>
                 <ul className="space-y-2 text-gray-400">
-                  <li>📧 contacto@fotografia.com</li>
-                  <li>📱 +52 55 1234 5678</li>
-                  <li>📍 Ciudad de México</li>
+                  <li>📧 laura.rosso@gmail.com</li>
+                  <li>📱 +598 91247718</li>
+                  <li>📍 Mercedes, Soriano, Uruguay</li>
                 </ul>
               </div>
             </div>
             <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2024 Fotografía Profesional. Todos los derechos reservados.</p>
+              <p>&copy; 2024 Laura Rosso Fotografía. Todos los derechos reservados.</p>
             </div>
           </div>
         </footer>

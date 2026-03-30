@@ -19,19 +19,18 @@ export default function About() {
             <div>
               <h2 className="text-4xl font-bold mb-6">Mi Historia</h2>
               <p className="text-lg leading-relaxed mb-6">
-                Desde pequeña, siempre me fascinó capturar momentos especiales con mi cámara.
-                Lo que comenzó como un hobby se convirtió en mi pasión y profesión.
-                Con más de 10 años de experiencia, he tenido el privilegio de documentar
-                algunos de los momentos más importantes en la vida de mis clientes.
+                Mi pasión por la fotografía viene de familia. Desde muy pequeña, crecí rodeada de cámaras y el mágico proceso del revelado fotográfico.
+                Mi padre era fotógrafo y me enseñó que las imágenes no solo capturan momentos, sino que preservan emociones y recuerdos para toda la vida.
+                Hoy continúo ese legado familiar, especializándome en fotografía que celebra las conexiones humanas más importantes.
               </p>
               <p className="text-lg leading-relaxed mb-6">
-                Mi enfoque es crear imágenes que no solo sean técnicamente perfectas,
-                sino que también cuenten historias y evoquen emociones. Creo en la importancia
-                de construir una conexión genuina con cada cliente para capturar su esencia única.
+                Me apasiona trabajar con familias, capturando esos momentos únicos que definen quiénes somos. Cada sesión es una oportunidad para
+                contar historias a través de las imágenes, desde la alegría de un cumpleaños infantil hasta la magia de una boda familiar.
+                Mi objetivo es crear fotografías que trasciendan el tiempo y se conviertan en tesoros familiares.
               </p>
               <p className="text-lg leading-relaxed">
-                Especializada en bodas, retratos y eventos, mi objetivo es hacer que cada sesión
-                sea memorable y los resultados superen las expectativas.
+                Trabajo principalmente en Mercedes y la zona de Soriano, Uruguay, pero estoy disponible para viajes especiales.
+                Creo en la importancia de construir una relación de confianza con cada cliente para capturar su esencia más auténtica.
               </p>
             </div>
             <div className="relative h-96">
@@ -48,20 +47,19 @@ export default function About() {
           <div className="mb-20">
             <h2 className="text-4xl font-bold text-center mb-12">Mi Experiencia</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center p-6 bg-gray-50 rounded-lg">
-                <div className="text-4xl mb-4">📸</div>
-                <h3 className="text-xl font-semibold mb-2">Fotografía Profesional</h3>
-                <p>Especializada en técnicas avanzadas de iluminación y composición</p>
-              </div>
-              <div className="text-center p-6 bg-gray-50 rounded-lg">
-                <div className="text-4xl mb-4">💻</div>
-                <h3 className="text-xl font-semibold mb-2">Edición Digital</h3>
-                <p>Maestría en Adobe Lightroom y Photoshop para resultados perfectos</p>
+              <div>
+                <h3 className="text-2xl font-semibold mb-2">Fotografía Familiar</h3>
+                <p>Especializada en capturar la esencia de las familias y sus momentos más preciados</p>
               </div>
               <div className="text-center p-6 bg-gray-50 rounded-lg">
                 <div className="text-4xl mb-4">❤️</div>
-                <h3 className="text-xl font-semibold mb-2">Enfoque Personal</h3>
-                <p>Cada cliente recibe atención personalizada y servicio excepcional</p>
+                <h3 className="text-2xl font-semibold mb-2">Bodas y Eventos</h3>
+                <p>Cobertura completa de celebraciones familiares y eventos especiales</p>
+              </div>
+              <div className="text-center p-6 bg-gray-50 rounded-lg">
+                <div className="text-4xl mb-4">🎂</div>
+                <h3 className="text-2xl font-semibold mb-2">Fiestas Infantiles</h3>
+                <p>Capturando la magia y alegría de cumpleaños y celebraciones navideñas</p>
               </div>
             </div>
           </div>
