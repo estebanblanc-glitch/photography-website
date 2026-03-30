@@ -21,6 +21,9 @@ export default function Contact() {
     setMessage('');
   };
 
+  const whatsappMessage = "Hola Laura, me gustaría consultar sobre tus servicios de fotografía.";
+  const whatsappUrl = `https://wa.me/59891247718?text=${encodeURIComponent(whatsappMessage)}`;
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -92,6 +95,20 @@ export default function Contact() {
                 Enviar Mensaje
               </button>
             </form>
+
+            {/* WhatsApp Button */}
+            <div className="mt-6 text-center">
+              <p className="text-gray-600 mb-4">¿Prefieres hablar por WhatsApp?</p>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center bg-green-600 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-green-700 transition"
+              >
+                <span className="mr-2">💬</span>
+                Enviar WhatsApp
+              </a>
+            </div>
           </div>
 
           {/* Contact Info */}

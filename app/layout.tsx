@@ -57,6 +57,20 @@ export default function RootLayout({
 
         {children}
 
+        {/* WhatsApp Floating Button */}
+        <a
+          href="https://wa.me/59891247718?text=Hola%20Laura,%20me%20gustar%C3%ADa%20consultar%20sobre%20tus%20servicios%20de%20fotograf%C3%ADa"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300 z-50 group"
+          aria-label="Contactar por WhatsApp"
+        >
+          <span className="text-2xl">💬</span>
+          <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-sm px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+            ¡Escríbeme por WhatsApp!
+          </span>
+        </a>
+
         {/* Footer */}
         <footer className="bg-gray-900 text-white py-12 mt-auto">
           <div className="max-w-6xl mx-auto px-4">
@@ -91,6 +105,16 @@ export default function RootLayout({
                   <li>📧 laura.rosso@gmail.com</li>
                   <li>📱 +598 91247718</li>
                   <li>📍 Mercedes, Soriano, Uruguay</li>
+                  <li>
+                    <a
+                      href="https://wa.me/59891247718"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-green-400 transition"
+                    >
+                      💬 WhatsApp
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

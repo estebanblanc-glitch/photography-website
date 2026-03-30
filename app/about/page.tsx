@@ -95,28 +95,36 @@ export default function About() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg">
                 <p className="text-lg italic mb-4">
-                  "Las fotos de nuestra boda son absolutamente perfectas. Capturó cada momento
-                  especial con tanta emoción y belleza. ¡Altamente recomendada!"
+                  "Laura capturó la esencia de nuestra familia de una manera increíble. Las fotos de Navidad
+                  con los niños son un tesoro que atesoraremos para siempre. ¡Profesional y cariñosa!"
                 </p>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
+                    alt="Ana López"
+                    className="w-12 h-12 rounded-full mr-4 object-cover"
+                  />
                   <div>
-                    <p className="font-semibold">María García</p>
-                    <p className="text-gray-600">Novia, 2023</p>
+                    <p className="font-semibold">Ana López</p>
+                    <p className="text-gray-600">Madre de familia, Mercedes</p>
                   </div>
                 </div>
               </div>
 
               <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg">
                 <p className="text-lg italic mb-4">
-                  "Profesional, talentosa y fácil de trabajar. Las fotos de mi familia
-                  son las mejores que hemos tenido. ¡Volveremos pronto!"
+                  "Nuestra boda fue perfecta gracias a Laura. No solo tomó fotos hermosas, sino que
+                  se convirtió en parte de la celebración. ¡Recomiendo sus servicios al 100%!"
                 </p>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+                    alt="Martín Silva"
+                    className="w-12 h-12 rounded-full mr-4 object-cover"
+                  />
                   <div>
-                    <p className="font-semibold">Carlos Rodríguez</p>
-                    <p className="text-gray-600">Cliente de Retratos</p>
+                    <p className="font-semibold">Martín Silva</p>
+                    <p className="text-gray-600">Novio, Dolores 2024</p>
                   </div>
                 </div>
               </div>
