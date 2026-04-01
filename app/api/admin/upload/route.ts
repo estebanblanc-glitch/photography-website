@@ -66,8 +66,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error uploading file:', error);
+    const message = error instanceof Error ? error.message : 'Error al subir el archivo';
     return NextResponse.json(
-      { error: 'Error al subir el archivo' },
+      { error: message },
       { status: 500 }
     );
   }

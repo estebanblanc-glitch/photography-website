@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error reading config:', error);
     return NextResponse.json(
-      { error: 'Error al leer la configuración' },
+      { error: error instanceof Error ? error.message : 'Error al leer la configuración' },
       { status: 500 }
     );
   }
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error saving config:', error);
     return NextResponse.json(
-      { error: 'Error al guardar la configuración' },
+      { error: error instanceof Error ? error.message : 'Error al guardar la configuración' },
       { status: 500 }
     );
   }

@@ -48,6 +48,7 @@ export default function AdminDashboard() {
   const [config, setConfig] = useState<SiteConfig | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingServiceIndex, setUploadingServiceIndex] = useState<number | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const router = useRouter();
 
@@ -98,7 +99,8 @@ export default function AdminDashboard() {
         alert('Configuración guardada exitosamente');
         setActiveSection(null);
       } else {
-        alert('Error al guardar la configuración');
+        const data = await response.json().catch(() => ({}));
+        alert(data.error || 'Error al guardar la configuración');
       }
     } catch (err) {
       alert('Error al guardar la configuración');
@@ -146,6 +148,31 @@ export default function AdminDashboard() {
 
     const newServices = config.services.filter((_, i) => i !== index);
     setConfig({ ...config, services: newServices });
+  };
+
+  const uploadServiceImage = async (index: number, file: File) => {
+    setUploadingServiceIndex(index);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || 'No se pudo subir la imagen');
+      }
+
+      updateService(index, 'image', data.url);
+      alert('Imagen subida correctamente');
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Error al subir la imagen');
+    } finally {
+      setUploadingServiceIndex(null);
+    }
   };
 
   const logout = async () => {
@@ -301,6 +328,23 @@ export default function AdminDashboard() {
                           onChange={(e) => updateService(index, 'image', e.target.value)}
                           className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                        <div className="mt-2 flex items-center gap-3">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                void uploadServiceImage(index, file);
+                              }
+                              e.currentTarget.value = '';
+                            }}
+                            className="block w-full text-sm text-gray-700"
+                          />
+                          {uploadingServiceIndex === index && (
+                            <span className="text-sm text-gray-500">Subiendo...</span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
