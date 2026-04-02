@@ -49,6 +49,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingServiceIndex, setUploadingServiceIndex] = useState<number | null>(null);
+  const [uploadingPortfolioIndex, setUploadingPortfolioIndex] = useState<number | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const router = useRouter();
 
@@ -150,6 +151,35 @@ export default function AdminDashboard() {
     setConfig({ ...config, services: newServices });
   };
 
+  const updatePortfolio = (index: number, field: string, value: string) => {
+    if (!config) return;
+
+    const newPortfolio = [...config.portfolio];
+    newPortfolio[index] = { ...newPortfolio[index], [field]: value };
+    setConfig({ ...config, portfolio: newPortfolio });
+  };
+
+  const addPortfolioItem = () => {
+    if (!config) return;
+
+    const newItem = {
+      id: Date.now().toString(),
+      title: 'Nueva Foto',
+      category: 'general',
+      image: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=500',
+      description: 'Descripción de la foto',
+    };
+
+    setConfig({ ...config, portfolio: [...config.portfolio, newItem] });
+  };
+
+  const removePortfolioItem = (index: number) => {
+    if (!config) return;
+
+    const newPortfolio = config.portfolio.filter((_, i) => i !== index);
+    setConfig({ ...config, portfolio: newPortfolio });
+  };
+
   const uploadServiceImage = async (index: number, file: File) => {
     setUploadingServiceIndex(index);
     try {
@@ -172,6 +202,31 @@ export default function AdminDashboard() {
       alert(error instanceof Error ? error.message : 'Error al subir la imagen');
     } finally {
       setUploadingServiceIndex(null);
+    }
+  };
+
+  const uploadPortfolioImage = async (index: number, file: File) => {
+    setUploadingPortfolioIndex(index);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || 'No se pudo subir la imagen');
+      }
+
+      updatePortfolio(index, 'image', data.url);
+      alert('Imagen subida correctamente');
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Error al subir la imagen');
+    } finally {
+      setUploadingPortfolioIndex(null);
     }
   };
 
@@ -353,6 +408,90 @@ export default function AdminDashboard() {
             </div>
           )}
 
+          {activeSection === 'portfolio' && (
+            <div className="bg-white shadow rounded-lg p-6 mb-6">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-medium text-gray-900">Editar Portafolio</h2>
+                <button
+                  onClick={addPortfolioItem}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                >
+                  Agregar Foto
+                </button>
+              </div>
+              <div className="space-y-6">
+                {config.portfolio.map((item, index) => (
+                  <div key={item.id} className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-md font-medium text-gray-900">Foto {index + 1}</h3>
+                      <button
+                        onClick={() => removePortfolioItem(index)}
+                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Título</label>
+                        <input
+                          type="text"
+                          value={item.title}
+                          onChange={(e) => updatePortfolio(index, 'title', e.target.value)}
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Categoría</label>
+                        <input
+                          type="text"
+                          value={item.category}
+                          onChange={(e) => updatePortfolio(index, 'category', e.target.value)}
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700">Descripción</label>
+                        <textarea
+                          value={item.description}
+                          onChange={(e) => updatePortfolio(index, 'description', e.target.value)}
+                          rows={2}
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700">URL de Imagen</label>
+                        <input
+                          type="text"
+                          value={item.image}
+                          onChange={(e) => updatePortfolio(index, 'image', e.target.value)}
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                        <div className="mt-2 flex items-center gap-3">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                void uploadPortfolioImage(index, file);
+                              }
+                              e.currentTarget.value = '';
+                            }}
+                            className="block w-full text-sm text-gray-700"
+                          />
+                          {uploadingPortfolioIndex === index && (
+                            <span className="text-sm text-gray-500">Subiendo...</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {/* Información del Sitio */}
             <div className="bg-white overflow-hidden shadow rounded-lg">
@@ -443,8 +582,11 @@ export default function AdminDashboard() {
               </div>
               <div className="bg-gray-50 px-5 py-3">
                 <div className="text-sm">
-                  <button className="font-medium text-indigo-600 hover:text-indigo-500">
-                    Gestionar portafolio
+                  <button
+                    onClick={() => setActiveSection(activeSection === 'portfolio' ? null : 'portfolio')}
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    {activeSection === 'portfolio' ? 'Ocultar' : 'Gestionar portafolio'}
                   </button>
                 </div>
               </div>
