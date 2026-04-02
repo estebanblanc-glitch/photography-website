@@ -50,6 +50,7 @@ export default function AdminDashboard() {
   const [saving, setSaving] = useState(false);
   const [uploadingServiceIndex, setUploadingServiceIndex] = useState<number | null>(null);
   const [uploadingPortfolioIndex, setUploadingPortfolioIndex] = useState<number | null>(null);
+  const [lastAddedServiceId, setLastAddedServiceId] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const router = useRouter();
 
@@ -57,6 +58,16 @@ export default function AdminDashboard() {
     checkAuth();
     loadConfig();
   }, []);
+
+  useEffect(() => {
+    if (!lastAddedServiceId || activeSection !== 'services') return;
+
+    const targetInput = document.querySelector<HTMLInputElement>(`[data-service-name="${lastAddedServiceId}"]`);
+    if (targetInput) {
+      targetInput.focus();
+      targetInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [lastAddedServiceId, activeSection, config]);
 
   const checkAuth = async () => {
     try {
@@ -142,6 +153,8 @@ export default function AdminDashboard() {
     };
 
     setConfig({ ...config, services: [...config.services, newService] });
+    setActiveSection('services');
+    setLastAddedServiceId(newService.id);
   };
 
   const removeService = (index: number) => {
@@ -352,6 +365,7 @@ export default function AdminDashboard() {
                         <label className="block text-sm font-medium text-gray-700">Nombre</label>
                         <input
                           type="text"
+                          data-service-name={service.id}
                           value={service.name}
                           onChange={(e) => updateService(index, 'name', e.target.value)}
                           className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
