@@ -13,7 +13,7 @@ export default async function Portfolio() {
       <section className="bg-gray-900 text-white py-20">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-4">Mi Portafolio</h1>
-          <p className="text-xl">Una colección de mis mejores trabajos fotográficos</p>
+          <p className="text-xl">Una colección de algunos de mis trabajos fotográficos</p>
         </div>
       </section>
 
