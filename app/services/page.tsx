@@ -32,7 +32,7 @@ export default async function Services() {
                 </div>
                 <div className="lg:w-1/2">
                   <h2 className="text-3xl font-bold mb-4">{service.name}</h2>
-                  <p className="text-xl text-blue-600 font-semibold mb-4">{service.price}</p>
+                  <p className="text-xl text-blue-600 font-semibold mb-4">Consultar presupuesto</p>
                   <p className="text-gray-700 mb-6">{service.description}</p>
                   <Link
                     href="/booking"
@@ -50,10 +50,10 @@ export default async function Services() {
       {/* Pricing Calculator */}
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">Calculadora de Precios</h2>
+          <h2 className="text-4xl font-bold mb-8">Cotización Personalizada</h2>
           <p className="text-lg mb-8">
-            Los precios pueden variar según la complejidad del proyecto, ubicación y requisitos específicos.
-            Contáctame para un presupuesto personalizado.
+            Cada trabajo se cotiza según el tipo de sesión, duración, ubicación y necesidades específicas.
+            Contáctame para recibir una propuesta personalizada.
           </p>
 
           <div className="bg-white rounded-lg shadow-lg p-8">
@@ -69,7 +69,7 @@ export default async function Services() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-2">Costos Adicionales:</h4>
+                <h4 className="font-semibold mb-2">Opciones Adicionales:</h4>
                 <ul className="space-y-1 text-gray-700">
                   <li>• Viaje y desplazamiento</li>
                   <li>• Impresiones físicas</li>

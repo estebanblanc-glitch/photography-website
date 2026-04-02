@@ -3,10 +3,10 @@
 import { useState } from 'react';
 
 const services = [
-  { name: 'Sesión de Retratos', basePrice: 150, description: 'Sesión de 1 hora con 10-15 fotos editadas' },
-  { name: 'Fotografía de Boda', basePrice: 2500, description: 'Cobertura completa del día de la boda' },
-  { name: 'Evento Corporativo', basePrice: 500, description: 'Cobertura de evento de 2-4 horas' },
-  { name: 'Sesión de Producto', basePrice: 200, description: 'Fotografía de productos para e-commerce' },
+  { name: 'Sesión de Retratos', description: 'Sesión de 1 hora con 10-15 fotos editadas' },
+  { name: 'Fotografía de Boda', description: 'Cobertura completa del día de la boda' },
+  { name: 'Evento Corporativo', description: 'Cobertura de evento de 2-4 horas' },
+  { name: 'Sesión de Producto', description: 'Fotografía de productos para e-commerce' },
 ];
 
 export default function Booking() {
@@ -17,11 +17,6 @@ export default function Booking() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [details, setDetails] = useState('');
-
-  const calculatePrice = () => {
-    const service = services.find(s => s.name === selectedService);
-    return service ? service.basePrice : 0;
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +43,7 @@ export default function Booking() {
                 <option value="">Selecciona un servicio</option>
                 {services.map((service) => (
                   <option key={service.name} value={service.name}>
-                    {service.name} - ${service.basePrice}
+                    {service.name}
                   </option>
                 ))}
               </select>
@@ -130,16 +125,16 @@ export default function Booking() {
               ></textarea>
             </div>
 
-            {/* Price Calculator */}
+            {/* Service Summary */}
             {selectedService && (
               <div className="bg-blue-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-4">Resumen de la Reserva</h3>
                 <div className="flex justify-between items-center">
                   <span className="text-lg">{selectedService}</span>
-                  <span className="text-2xl font-bold text-blue-600">${calculatePrice()}</span>
+                  <span className="text-lg font-semibold text-blue-600">Consultar presupuesto</span>
                 </div>
                 <p className="text-sm text-gray-600 mt-2">
-                  * El precio incluye edición básica y entrega digital. Precios adicionales pueden aplicar para paquetes premium.
+                  * Te enviaremos una cotización personalizada según tus necesidades.
                 </p>
               </div>
             )}
@@ -161,7 +156,7 @@ export default function Booking() {
             <li>• La confirmación de la reserva está sujeta a disponibilidad</li>
             <li>• Se requiere un depósito del 50% para confirmar la fecha</li>
             <li>• Las sesiones al aire libre están sujetas a condiciones climáticas</li>
-            <li>• Los precios incluyen edición profesional y entrega digital</li>
+            <li>• El presupuesto final se confirma por mensaje antes de la reserva</li>
             <li>• Para bodas, se recomienda reservar con al menos 6 meses de anticipación</li>
           </ul>
         </div>

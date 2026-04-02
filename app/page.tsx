@@ -53,7 +53,7 @@ export default async function Home() {
               <div key={service.id} className="text-center p-6 bg-white rounded-lg shadow-lg">
                 <h3 className="text-2xl font-semibold mb-4">{service.name}</h3>
                 <p className="mb-4">{service.description}</p>
-                <p className="text-2xl font-bold text-blue-600">{service.price}</p>
+                <p className="text-xl font-semibold text-blue-600">Consultar presupuesto</p>
               </div>
             ))}
           </div>
