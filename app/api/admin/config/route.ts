@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
         ? newConfig.services.map((service: any, index: number) => ({
             id: String(service?.id || `service-${Date.now()}-${index}`),
             name: String(service?.name || `Servicio ${index + 1}`).trim(),
-            price: String(service?.price || 'Consultar').trim(),
+            price: 'Consultar',
             description: String(service?.description || 'Descripción del servicio').trim(),
             image: String(service?.image || FALLBACK_SERVICE_IMAGE).trim(),
           }))

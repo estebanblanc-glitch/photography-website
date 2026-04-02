@@ -48,6 +48,7 @@ export default function AdminDashboard() {
   const [config, setConfig] = useState<SiteConfig | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingField, setUploadingField] = useState<string | null>(null);
   const [uploadingServiceIndex, setUploadingServiceIndex] = useState<number | null>(null);
   const [uploadingPortfolioIndex, setUploadingPortfolioIndex] = useState<number | null>(null);
   const [lastAddedServiceId, setLastAddedServiceId] = useState<string | null>(null);
@@ -133,6 +134,23 @@ export default function AdminDashboard() {
     });
   };
 
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch('/api/admin/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.error || 'No se pudo subir la imagen');
+    }
+
+    return data.url as string;
+  };
+
   const updateService = (index: number, field: string, value: string) => {
     if (!config) return;
 
@@ -196,20 +214,8 @@ export default function AdminDashboard() {
   const uploadServiceImage = async (index: number, file: File) => {
     setUploadingServiceIndex(index);
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(data.error || 'No se pudo subir la imagen');
-      }
-
-      updateService(index, 'image', data.url);
+      const url = await uploadImage(file);
+      updateService(index, 'image', url);
       alert('Imagen subida correctamente');
     } catch (error) {
       alert(error instanceof Error ? error.message : 'Error al subir la imagen');
@@ -221,25 +227,30 @@ export default function AdminDashboard() {
   const uploadPortfolioImage = async (index: number, file: File) => {
     setUploadingPortfolioIndex(index);
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(data.error || 'No se pudo subir la imagen');
-      }
-
-      updatePortfolio(index, 'image', data.url);
+      const url = await uploadImage(file);
+      updatePortfolio(index, 'image', url);
       alert('Imagen subida correctamente');
     } catch (error) {
       alert(error instanceof Error ? error.message : 'Error al subir la imagen');
     } finally {
       setUploadingPortfolioIndex(null);
+    }
+  };
+
+  const uploadSectionImage = async (
+    section: 'hero' | 'about',
+    field: 'backgroundImage' | 'image',
+    file: File
+  ) => {
+    setUploadingField(`${section}.${field}`);
+    try {
+      const url = await uploadImage(file);
+      updateConfig(section, field, url);
+      alert('Imagen subida correctamente');
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Error al subir la imagen');
+    } finally {
+      setUploadingField(null);
     }
   };
 
@@ -333,6 +344,58 @@ export default function AdminDashboard() {
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">Imagen de Portada (Hero)</label>
+                  <input
+                    type="text"
+                    value={config.hero.backgroundImage}
+                    onChange={(e) => updateConfig('hero', 'backgroundImage', e.target.value)}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  <div className="mt-2 flex items-center gap-3">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          void uploadSectionImage('hero', 'backgroundImage', file);
+                        }
+                        e.currentTarget.value = '';
+                      }}
+                      className="block w-full text-sm text-gray-700"
+                    />
+                    {uploadingField === 'hero.backgroundImage' && (
+                      <span className="text-sm text-gray-500">Subiendo...</span>
+                    )}
+                  </div>
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">Imagen de Sobre Mí</label>
+                  <input
+                    type="text"
+                    value={config.about.image}
+                    onChange={(e) => updateConfig('about', 'image', e.target.value)}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  <div className="mt-2 flex items-center gap-3">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          void uploadSectionImage('about', 'image', file);
+                        }
+                        e.currentTarget.value = '';
+                      }}
+                      className="block w-full text-sm text-gray-700"
+                    />
+                    {uploadingField === 'about.image' && (
+                      <span className="text-sm text-gray-500">Subiendo...</span>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -372,12 +435,12 @@ export default function AdminDashboard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700">Precio</label>
+                        <label className="block text-sm font-medium text-gray-700">Presupuesto</label>
                         <input
                           type="text"
-                          value={service.price}
-                          onChange={(e) => updateService(index, 'price', e.target.value)}
-                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          value="Consultar"
+                          disabled
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 sm:text-sm"
                         />
                       </div>
                       <div className="sm:col-span-2">
