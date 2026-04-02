@@ -1,19 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getSiteConfig } from "@/lib/utils";
 
-const photos = [
-  { src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500", alt: "Boda 1", category: "bodas" },
-  { src: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=500", alt: "Retrato 1", category: "retratos" },
-  { src: "https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=500", alt: "Evento 1", category: "eventos" },
-  { src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500", alt: "Boda 2", category: "bodas" },
-  { src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500", alt: "Retrato 2", category: "retratos" },
-  { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=500", alt: "Evento 2", category: "eventos" },
-  { src: "https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=500", alt: "Producto 1", category: "productos" },
-  { src: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", alt: "Producto 2", category: "productos" },
-  { src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500", alt: "Boda 3", category: "bodas" },
-];
+export const dynamic = 'force-dynamic';
 
-export default function Portfolio() {
+export default async function Portfolio() {
+  const config = await getSiteConfig();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -37,11 +30,11 @@ export default function Portfolio() {
 
           {/* Photo Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {photos.map((photo, index) => (
-              <div key={index} className="relative aspect-square overflow-hidden rounded-lg shadow-lg group">
+            {config.portfolio.map((photo) => (
+              <div key={photo.id} className="relative aspect-square overflow-hidden rounded-lg shadow-lg group">
                 <Image
-                  src={photo.src}
-                  alt={photo.alt}
+                  src={photo.image}
+                  alt={photo.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />

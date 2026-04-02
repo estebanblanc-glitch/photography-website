@@ -1,66 +1,12 @@
 import Link from 'next/link';
+import { getSiteConfig } from '@/lib/utils';
 
-const services = [
-  {
-    name: 'Fotografía de Bodas',
-    price: 'Desde $2,500',
-    description: 'Captura el día más importante de tu vida con elegancia y emoción.',
-    features: [
-      'Cobertura completa del día de la boda',
-      'Fotos de preparación de novia y novio',
-      'Ceremonia y recepción',
-      'Sesión de pareja (1 hora adicional)',
-      'Edición profesional de todas las fotos',
-      'Entrega en alta resolución',
-      'Álbum digital incluido'
-    ],
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600'
-  },
-  {
-    name: 'Retratos y Sesiones Personales',
-    price: 'Desde $150',
-    description: 'Sesiones personalizadas para capturar tu esencia única.',
-    features: [
-      'Sesión de 1 hora en estudio o locación',
-      '10-15 fotos editadas profesionalmente',
-      'Entrega digital en alta resolución',
-      'Consejos de styling incluidos',
-      'Opciones de impresión disponibles',
-      'Sesiones familiares disponibles'
-    ],
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600'
-  },
-  {
-    name: 'Eventos Corporativos',
-    price: 'Desde $500',
-    description: 'Documenta tus eventos empresariales con profesionalismo.',
-    features: [
-      'Cobertura de 2-4 horas del evento',
-      'Fotos de discursos y presentaciones',
-      'Fotografías de grupo y networking',
-      'Entrega en 24-48 horas',
-      'Uso comercial autorizado',
-      'Edición básica incluida'
-    ],
-    image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600'
-  },
-  {
-    name: 'Fotografía de Producto',
-    price: 'Desde $200',
-    description: 'Haz que tus productos luzcan irresistibles.',
-    features: [
-      'Fotografía de hasta 10 productos',
-      'Iluminación profesional en estudio',
-      'Fondos personalizados',
-      'Edición para e-commerce',
-      'Archivos optimizados para web',
-      'Opciones de impresión disponibles'
-    ],
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600'
-  }
-];
+export const dynamic = 'force-dynamic';
 
-export default function Services() {
+export default async function Services() {
+  const config = await getSiteConfig();
+  const services = config.services;
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -88,14 +34,6 @@ export default function Services() {
                   <h2 className="text-3xl font-bold mb-4">{service.name}</h2>
                   <p className="text-xl text-blue-600 font-semibold mb-4">{service.price}</p>
                   <p className="text-gray-700 mb-6">{service.description}</p>
-                  <ul className="space-y-2 mb-8">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center">
-                        <span className="text-green-500 mr-2">✓</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
                   <Link
                     href="/booking"
                     className="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition"

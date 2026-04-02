@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getSiteConfig } from "../lib/utils";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const config = await getSiteConfig();
 
