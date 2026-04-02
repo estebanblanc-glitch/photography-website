@@ -11,8 +11,21 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would send the email
-    alert('Mensaje enviado. Te responderemos pronto.');
+
+    const whatsappMessage = [
+      'Hola Laura, te envio una consulta desde la web.',
+      `Nombre: ${name}`,
+      `Telefono: ${phone || 'No especificado'}`,
+      `Correo: ${email || 'No especificado'}`,
+      `Asunto: ${subject}`,
+      `Mensaje: ${message}`,
+    ].join('\n');
+
+    const whatsappUrl = `https://wa.me/59891247718?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    alert('Te redirigimos a WhatsApp para enviar la consulta.');
+
     // Reset form
     setName('');
     setEmail('');
@@ -46,13 +59,12 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Correo Electrónico</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Correo Electrónico (opcional)</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
                 />
               </div>
 
@@ -92,7 +104,7 @@ export default function Contact() {
                 type="submit"
                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 transition"
               >
-                Enviar Mensaje
+                Enviar por WhatsApp
               </button>
             </form>
 

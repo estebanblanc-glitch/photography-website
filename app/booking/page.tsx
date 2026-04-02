@@ -20,8 +20,22 @@ export default function Booking() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to a server
-    alert('Reserva enviada. Te contactaremos pronto para confirmar.');
+
+    const whatsappMessage = [
+      'Hola Laura, quiero reservar una sesion fotografica.',
+      `Servicio: ${selectedService}`,
+      `Fecha: ${date}`,
+      `Hora: ${time}`,
+      `Nombre: ${name}`,
+      `Telefono: ${phone}`,
+      `Correo: ${email || 'No especificado'}`,
+      `Detalles: ${details || 'Sin detalles adicionales'}`,
+    ].join('\n');
+
+    const whatsappUrl = `https://wa.me/59891247718?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    alert('Te redirigimos a WhatsApp para enviar la reserva.');
   };
 
   return (
@@ -91,13 +105,12 @@ export default function Booking() {
                 />
               </div>
               <div>
-                <label className="block text-lg font-semibold mb-2">Correo Electrónico</label>
+                <label className="block text-lg font-semibold mb-2">Correo Electrónico (opcional)</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
                 />
               </div>
             </div>
