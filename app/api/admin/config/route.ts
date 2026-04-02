@@ -4,6 +4,8 @@ import { getSiteConfig, saveSiteConfig } from '@/lib/utils';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'tu-secreto-jwt-aqui'; // Cambiar en producción
 
+const FALLBACK_SERVICE_IMAGE = 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600';
+
 function verifyToken(request: NextRequest) {
   const token = request.cookies.get('admin-token')?.value;
   if (!token) return false;
@@ -55,7 +57,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await saveSiteConfig(newConfig);
+    const normalizedConfig = {
+      ...newConfig,
+      services: Array.isArray(newConfig.services)
+        ? newConfig.services.map((service: any, index: number) => ({
+            id: String(service?.id || `service-${Date.now()}-${index}`),
+            name: String(service?.name || `Servicio ${index + 1}`).trim(),
+            price: String(service?.price || 'Consultar').trim(),
+            description: String(service?.description || 'Descripción del servicio').trim(),
+            image: String(service?.image || FALLBACK_SERVICE_IMAGE).trim(),
+          }))
+        : [],
+    };
+
+    await saveSiteConfig(normalizedConfig);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error saving config:', error);

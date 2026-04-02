@@ -22,7 +22,7 @@ export default async function Services() {
         <div className="max-w-6xl mx-auto">
           <div className="space-y-16">
             {services.map((service, index) => (
-              <div key={service.name} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12`}>
+              <div key={service.id || `${index}-${service.name}`} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12`}>
                 <div className="lg:w-1/2">
                   <img
                     src={service.image}

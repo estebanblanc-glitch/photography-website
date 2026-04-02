@@ -135,9 +135,9 @@ export default function AdminDashboard() {
 
     const newService = {
       id: Date.now().toString(),
-      name: 'Nuevo Servicio',
-      price: 'Desde $0',
-      description: 'Descripción del servicio',
+      name: `Nuevo Servicio ${config.services.length + 1}`,
+      price: 'Consultar',
+      description: 'Contáctanos para recibir una propuesta personalizada para este servicio.',
       image: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600',
     };
 
